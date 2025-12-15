@@ -1,0 +1,528 @@
+<!-- Formació de la pàgina -->
+<!DOCTYPE html>
+<html lang="ca">
+
+
+<head>
+<meta charset="UTF-8">
+<title>Simulació Fusió Nuclear TR</title>
+<style>
+/* Formació del cos del programa */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, sans-serif;
+    background: radial-gradient(circle at top, #070132, #201f45);
+    color: rgb(0, 0, 0);
+}
+/* Dividir les pagines en dues seccions */
+.container {
+    display: flex;
+    height: 100vh; /* 100% altura*/
+}
+/* Declarar les dues seccions */
+.left {
+    width: 35%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 8px solid #ceb600;
+    box-shadow: 3px 0 0 0 #cf8700;
+    background-color: #b0b0b0;
+    position: relative;
+}
+.right {
+    width: 65%;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+/* Estil dels quadres */
+
+/* Esquerra */
+    .left .quadre-titol {
+        width: 97.5%;
+        min-height: 80px;
+        background-color: #110934;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 0 0 #cf8700;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .left .quadre-titol h1 {
+        margin-left: -5px;
+        margin-top: 0;
+        font-size: 44px;
+        color: #ffffff;
+        -webkit-text-stroke: 1px #ebc000;
+    }
+    .left .quadre-proposit {
+        width: 97.5%;
+        height: 90px;
+        background-color: #d9d9d9;
+        margin-bottom: 20px;
+        padding: 10px;
+        box-shadow: 0 3px 0 0 #cf8700;
+    }
+
+    /* Quadre de dades */
+    .left .quadre-dades {
+        width: 97.5%;
+        height: 325px;
+        background-color: #d9d9d9;
+        margin-bottom: 20px;
+        padding: 10px;
+        box-shadow: 0 3px 0 0 #cf8700;
+    }
+    .left .quadre-dades label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .left .quadre-dades select {
+        background-color: #d9aa00;
+        box-shadow: 1px 1px 1px 1px #000000;
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #000000;
+        margin-bottom: 15px;
+
+        font-family: Verdana, sans-serif;
+        font-size: 15px;
+        color: #000000;
+    }  
+    .quadre-dades .quadre-dades {
+        display: flex;
+        gap: 20px;
+        align-self: flex-start;
+    }
+    /* Slider + inputs */
+    .quadre-dades .quadre-dades {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    /* Slider vertical */
+    .quadre-dades .slider {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }   
+    .quadre-dades .slider input[type="range"] {
+        width: 470px;
+        height: 30px;
+        margin-top: 20px;
+    }
+    .quadre-dades .inputs{
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+    }
+    input[type="number"] {
+        height: 25px;
+        font-size: 16px;
+        padding: 4px;
+    }
+
+    .left .quadre-proposit p,
+    .left .quadre-dades p {
+        margin: 0 0 5px 0;
+    }
+
+    #simular {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #110934;
+        color: #ffffff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        -webkit-text-stroke: 1px #ebc000;
+        width: 100%;
+    }
+
+/* Dreta */
+    .right { box-shadow: 3px 0 0 0 #cf8700; }
+    .right .quadre-dibuix-dreta {
+        width: 300px;
+        height: 100px;
+        background-color: #d9d9d9;
+        padding: 10px;
+        box-shadow: 0 3px 0 0 #cf8700;
+        border: #cf8700 3px solid;
+        border-radius: 8px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    .right #combustible-dibuix {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+    .right #combustible-dibuix img {
+        width: 20px;
+        height: 20px;
+    }
+    .right #atom-dibuix {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+    .right #atom-dibuix img {
+        width: 125px;
+        height: 125px;
+    }
+    .logo-dreta {
+        position: absolute;
+        top: 20px;
+        left: 360px;
+        width: 500px;
+        height: auto;
+    }
+    .quadre-resultats {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 900px;
+        background-color: #d9d9d9;
+        padding: 10px;
+        box-shadow: 0 3px 0 0 #cf8700;
+        border: #cf8700 3px solid;
+        border-radius: 8px;
+    }
+    .quadre-resultats .resultat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    }
+
+    .quadre-resultats .resultat span {
+    color: #110934;
+    }
+
+    .quadre-resultats .resultat strong {
+    color: #ebc000;
+    -webkit-text-stroke: 1px #11007e;
+    }
+
+
+    /* Animació de vibració*/
+    @keyframes vibrar {
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(-4px, 2px); }
+    40%  { transform: translate(4px, -2px); }
+    60%  { transform: translate(-3px, -2px); }
+    80%  { transform: translate(3px, 2px); }
+    100% { transform: translate(0, 0); }
+    }
+    .vibracio {
+    animation: vibrar 0.15s infinite;
+    }
+</style>
+</head>
+<!--Contingut de la pàgina-->
+<body>
+<!-- Inici -->
+<div class="container">
+    <!-- Mitad esquerra -->
+    <div class="left">
+        <!-- Quadre del titol -->
+        <div class="quadre-titol">
+            <h1>FUSIÓ NUCLEAR TR</h1>
+        </div>
+
+        <!-- Quadre del propósit -->
+        <div class="quadre-proposit">
+            <p>La simulació presentarà la fusió dels combustibles escollits segons les variables que introduira l'usuari...
+            </p>
+            <p>
+            Calcularà la potència generada pel reactor, la potencia introduida al reactor i el factor de guany energètic.
+            </p>
+        </div>
+
+        <!-- Quadre de introducció de dades -->
+        <div class = "quadre-dades">
+            <p><strong>Selecciona el combustible:</strong></p>
+            <label for = "combustible"></label>
+            <select id = "combustible">
+                <option value = "DT">Deuteri-Triti (D-T)</option>
+                <option value = "DHe3">Deuteri-Heli-3 (D-He3)</option>
+            </select>
+            <!-- Slider -->
+            <div class = "slider">
+                <label for = "temperatura">Temperatura (Milions de K): <span id="tempValor"></span></label>
+                <input type = "range" id = "temperatura" min = "80" max = "300" value = "10">
+            </div>
+            <!--Inputs-->
+            <div class = "inputs DT">
+                <label for = "deuteri">Deuteri (g)</label>
+                <input type = "number" id = "deuteri" min = "0" value = "0" max = "10" step = "0.01">
+                <label for = "triti">Triti (g)</label>
+                <input type = "number" id = "triti" min = "0" value = "0" max = "10" step = "0.01">
+            </div>
+            <div class = "inputs DHe3">
+                <label for = "deuteri2">Deuteri (g)</label>
+                <input type = "number" id = "deuteri2" min = "0" value = "0" max = "10" step = "0.01">
+                <label for = "heli3">Heli-3 (g)</label>
+                <input type = "number" id = "heli3" min = "0" value = "0" max = "10" step = "0.01">
+            </div>
+            <button id="simular">INICIAR</button>
+        </div>
+    </div>
+
+    <!-- Mitad dreta -->
+    <div class="right">
+        <!-- Quadre del dibuix del combustible i logo -->
+        <div class="quadre-dibuix-dreta">
+            <div class = "atom" id = "atom-dibuix">
+            </div>
+            <img src = "images/ICH.png" class = "logo-dreta" alt = "logo">
+        </div>
+        <!--Animació-->
+        <div id="fusio-canvas" style="
+        position: absolute;
+        top: 140px;
+        left: 20px;
+        width: calc(100% - 40px);
+        height: 400px;
+        background-color: transparent;
+        overflow: hidden;"></div>
+        <!-- Resultats -->
+        <div class = "quadre-resultats">
+            <div class = "resultat">
+                <span>Poténcia introduida (MW): </span>
+                <strong id = "potencia-introduida"></strong>
+            </div>
+            <div class = "resultat">
+                <span>Poténcia de fusió (MW): </span>
+                <strong id = "potencia-fusio"></strong>
+            </div>
+            <div class = "resultat">
+                <span>Factor de guany (Q): </span>
+                <strong id = "factor-guany"></strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Script -->
+<script>
+    const select = document.getElementById('combustible');
+    const slider = document.getElementById('temperatura');
+    const tempValor = document.getElementById('tempValor');
+    const atomDibuix = document.getElementById('atom-dibuix');
+    const inputsDT = document.querySelector('.inputs.DT');
+    const inputsDHe3 = document.querySelector('.inputs.DHe3');
+    //Slider
+    tempValor.textContent = slider.value;
+    slider.addEventListener('input', () => {
+    tempValor.textContent = slider.value;
+});
+    function Atoms(){
+        atomDibuix.innerHTML = "";
+        inputsDT.style.display = "none";
+        inputsDHe3.style.display = "none";
+        if(select.value === "DT"){
+            //Deuteri
+            const deuteri = document.createElement("img");
+            deuteri.src = "images/deuteri.png";
+            atomDibuix.appendChild(deuteri);
+            //Triti
+            const triti = document.createElement("img");
+            triti.src = "images/triti.png";
+            atomDibuix.appendChild(triti);
+            //Mostrar inputs D-T
+            inputsDT.style.display = "flex";
+        } else if(select.value === "DHe3"){
+            //Deuteri
+            const deuteri = document.createElement("img");
+            deuteri.src = "images/deuteri.png";
+            atomDibuix.appendChild(deuteri);
+            //Heli-3
+            const heli3 = document.createElement('img');
+            heli3.src = 'images/heli3.png';
+            atomDibuix.appendChild(heli3);
+            //Mostrar inputs D-He3
+            inputsDHe3.style.display = "flex";
+        }
+    }
+    select.addEventListener("change", Atoms);
+    window.onload = Atoms;
+//Codi de càlculs
+function calcularTR() {
+    //Portem els valors del slider i els inputs
+    const tipo = document.getElementById("combustible").value;
+    const gDeuteri = parseFloat(document.getElementById('deuteri').value || document.getElementById('deuteri2').value);
+    const gAltre = parseFloat(document.getElementById('triti')?.value || document.getElementById('heli3')?.value);
+    const K = parseFloat(document.getElementById('temperatura').value) * 1e6;
+//Constants
+    const D = (6.022e23)/(2.014101*470);
+    const T = (6.022e23)/(3.016049*470);
+    const He = (6.022e23)/(3.016029*470);
+    const E_D_T = 17.6 * 1.6e-13;
+    const E_D_He3 = 18.3 * 1.6e-13;
+    const kBKeV = 8.6e-8;
+    const kBJ = 1.38e-23;
+    const V_plasma = 470;
+    const KeV = K * kBKeV;
+//Càlculs
+    let n1, n2, reactivitat, pFus, MWpFus, pHeat, MWpHeat, W, t_con;
+    if (tipo === "DT") {
+        n1 = gDeuteri * D;
+        n2 = gAltre * T;
+        const DT_1 = 1e-26 * KeV**4;
+        const DT_2 = 1e-24 * KeV**1.28;
+        
+        if (KeV >= 1 && KeV <= 10) reactivitat = DT_1;
+        else if (KeV > 10 && KeV <= 60) reactivitat = DT_2;
+        else {
+            alert("Interval fora del rang");
+            return;
+        }
+
+        pFus = n1 * n2 * reactivitat * V_plasma * E_D_T;
+        MWpFus = pFus / 1e6;
+
+        W = 1.5 * (n1 + n2) * kBJ * K;
+        t_con = 1e20 / (n1 + n2);
+        pHeat = (W + pFus * 0.03) / t_con;
+        MWpHeat = pHeat / 1e6;
+    }
+    else if (tipo === "DHe3") {
+        n1 = gDeuteri * D;
+        n2 = gAltre * He;
+        const DHe3_1 = 1e-27 * KeV**(14/3);
+        const DHe3_2 = 1e-24 * KeV**1.2;
+        
+        if (KeV >= 6 && KeV <= 10) reactivitat = DHe3_1;
+        else if (KeV > 10 && KeV <= 40) reactivitat = DHe3_2;
+        else {
+            alert("Interval fora del rang");
+            return;
+        }
+
+        pFus = n1 * n2 * reactivitat * V_plasma * E_D_He3;
+        MWpFus = pFus / 1e6;
+
+        W = 1.5 * (n1 + n2) * kBJ * K;
+        t_con = 1e21 / (n1 + n2);
+        pHeat = (W + pFus * 0.03) / t_con;
+        MWpHeat = pHeat / 1e6;
+    }
+    document.getElementById('potencia-introduida').textContent = MWpHeat.toFixed(2);
+    document.getElementById("potencia-fusio").textContent = MWpFus.toFixed(2);
+    document.getElementById("factor-guany").textContent = (MWpFus / MWpHeat).toFixed(2);
+
+
+//Animació
+const fusionCanvas = document.getElementById("fusio-canvas");
+
+function crearParticula(src, id, left, top, size=150) { 
+    const img = document.createElement("img");
+    img.src = `images/${src}.png`;
+    img.id = id;
+    img.style.position = "absolute";
+    img.style.left = left;
+    img.style.top = top;
+    img.style.width = size + "px";
+    img.style.height = size + "px";
+    img.style.transition = "all 2s ease-in-out";
+    fusionCanvas.appendChild(img);
+    return img;
+}
+
+function animarFusio() {
+    fusionCanvas.innerHTML = '';
+    const tipo = select.value;
+    const canvasWidth = fusionCanvas.offsetWidth;
+    const canvasHeight = fusionCanvas.offsetHeight;
+    const imgSize = 150;
+    const centerX = canvasWidth / 2 - imgSize / 2;
+    const centerY = canvasHeight / 2 - imgSize / 2;
+
+    if (tipo === "DT") {
+        const d = crearParticula("deuteri", "d", "0px", centerY + "px", imgSize);
+        const t = crearParticula("triti", "t", canvasWidth - imgSize + "px", centerY + "px", imgSize);
+
+        // Moure al centre
+        setTimeout(() => {
+            d.style.left = centerX + "px";
+            t.style.left = centerX + "px";
+        }, 100);
+
+        // Animación de vibració abans de la fusió
+        setTimeout(() => {
+        d.classList.add("vibracio");
+        t.classList.add("vibracio");
+        }, 1800);
+
+        // Mostrar productes i disparar neutro
+        setTimeout(() => {
+            d.remove();
+            t.remove();
+            crearParticula("heli", "heli", centerX + "px", centerY + "px", imgSize);
+
+            const neutron = crearParticula("neutro", "neutro", centerX + "px", centerY + "px", imgSize);
+
+            // Animació del neutro
+            setTimeout(() => {
+                neutron.style.left = (centerX + 100) + "px";
+                neutron.style.top = (centerY - 100) + "px";
+            }, 50);
+
+        }, 2200);
+
+    } else if (tipo === "DHe3") {
+        const d = crearParticula("deuteri", "d", "0px", centerY + "px", imgSize);
+        const he3 = crearParticula("heli3", "he3", canvasWidth - imgSize + "px", centerY + "px", imgSize);
+        
+        // Moure al centre
+        setTimeout(() => {
+            d.style.left = centerX + 'px';
+            he3.style.left = centerX + 'px';
+        }, 100);
+
+        // Animació de vibració abans de la fusió
+        setTimeout(() => {
+        d.classList.add("vibracio");
+        he3.classList.add("vibracio");
+        }, 1800);
+
+        // Mostrar productes i disparar protó
+        setTimeout(() => {
+            d.remove();
+            he3.remove();
+            crearParticula("heli", "heli", centerX + "px", centerY + "px", imgSize);
+
+            const proton = crearParticula("proto", "proto", centerX + "px", centerY + "px", imgSize);
+
+        // Animació del protó
+        setTimeout(() => {
+            proton.style.left = (centerX + 100) + "px";
+            proton.style.top = (centerY - 100) + "px";
+        }, 50);
+
+        }, 2200);
+    }
+}
+
+// Combinar animació amb cálcul
+document.getElementById("simular").addEventListener("click", () => {
+    calcularTR();
+    animarFusio();
+});
+}
+document.getElementById("simular").addEventListener("click", calcularTR);
+</script>
+</body>
+</html>
